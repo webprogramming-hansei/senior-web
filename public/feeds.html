@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>피드 API 강의</title>
+  </head>
+  <body>
+    <h1>피드 목록</h1>
+    <div>
+      <button id="btnGetFeeds" onclick="fetchFeeds();">
+        피드 목록 가져오기
+      </button>
+      <button id="btnGetFeedDetail" onclick="javascript:fetchFeedDetail();">
+        피드 상세 정보
+      </button>
+      <button id="btnPostFeeds" onclick="javascript:createFeed();">
+        피드 등록하기
+      </button>
+    </div>
+    <ul>
+      <!-- 피드목록을 가져와서 보여주기 -->
+    </ul>
+
+    <script>
+      function fetchFeeds() {
+        fetch("http://localhost:4000/feeds")
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            const { body } = json;
+            const { feeds } = body;
+            // for (let i = 0; i < feeds.length; i++) {
+            //   console.log(feeds[i].content, feeds[i].tags);
+            // }
+
+            feeds.forEach((feed) => {
+              console.log("피드목록", feed.content, feed.tags);
+            });
+          })
+          .catch((e) => {});
+      }
+
+      function fetchFeedDetail() {
+        fetch("http://localhost:4000/feeds/2")
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            const { body } = json;
+            const { feed } = body;
+            console.log("피드상세", feed.content, feed.tags);
+          })
+          .catch((e) => {});
+      }
+
+      function createFeed() {
+        fetch("http://localhost:4000/feeds", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: "새로운 컨텐트",
+            tags: "#강의 #restapi",
+          }),
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            console.log(json);
+          })
+          .catch((e) => {});
+      }
+    </script>
+  </body>
+</html>

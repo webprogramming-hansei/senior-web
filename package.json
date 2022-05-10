@@ -1,0 +1,16 @@
+{
+  "name": "senior-webprogramming",
+  "version": "0.0.1",
+  "description": "고급웹프로그래밍 강의 프로젝트",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jjpark",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3"
+  }
+}

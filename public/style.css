@@ -1,0 +1,34 @@
+h1 {
+  color: red;
+}
+
+p {
+  font-weight: bold;
+  font-size: 35px;
+}
+
+/* input[type=number] {
+  display: block;
+} */
+
+#inpBalance {
+  width: 200px;
+}
+
+#inpRange {
+  display: inline;
+  width: 120px;
+}
+
+#divWrap {
+  text-align: center;
+}
+
+#selRangeUnit {
+  width: 76px;
+  height: 22px;
+}
+
+.commonMargin {
+  margin-bottom: 10px;
+}
