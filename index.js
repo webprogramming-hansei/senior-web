@@ -1,8 +1,17 @@
 const express = require("express");
+const mysql = require("mysql");
 const interestCalculator = require("./public/interestCalculator");
 
 const app = express();
 const port = 4000;
+const connection = mysql.createConnection({
+  host: "127.0.0.1",
+  user: "root",
+  password: "root",
+  database: "webprogramming",
+});
+
+connection.connect();
 
 // http: 80
 // https: 443
@@ -55,25 +64,35 @@ app.get("/my", (req, res) => {
 
 // Feed 목록 가져오기
 app.get("/feeds", (req, res) => {
-  const feedsJson = {
-    body: {
-      feeds: feeds,
-    },
-  };
-  res.json(feedsJson);
+  connection.query("SELECT * from feeds", function (error, results, fields) {
+    if (error) throw error;
+    console.log("첫번째 데이터의 콘텐트: ", results);
+
+    const feedsJson = {
+      body: {
+        feeds: results,
+      },
+    };
+    res.json(feedsJson);
+  });
 });
 
 // Feed 상세 가져오기
 app.get("/feeds/:id", (req, res) => {
   const feedId = Number(req.params.id);
 
-  const feed = {
-    body: {
-      feed: feeds[feedId - 1],
-    },
-  };
+  connection.query(`SELECT * from feeds WHERE ID=${feedId}`, function (error, results, fields) {
+    if (error) throw error;
+    console.log("첫번째 데이터의 콘텐트: ", results);
 
-  res.json(feed);
+    const feed = {
+      body: {
+        feed: results[0],
+      },
+    };
+  
+    res.json(feed);
+  });
 });
 
 // Feed 등록하기
